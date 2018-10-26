@@ -37,6 +37,10 @@ const std::string xml_text = R"(
 
 // clang-format on
 
+#ifndef M_PI
+#define M_PI   3.14159265358979323846 
+#endif
+
 // Write into the blackboard key: [GoalPose]
 // Use this function to create a SimpleActionNode that can access the blackboard
 NodeStatus CalculateGoalPose(TreeNode& self)
