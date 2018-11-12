@@ -64,11 +64,23 @@ distribution.
 #   pragma warning(disable: 4251)
 #endif
 
-// Do NOT export. This version is meant to be linked statically only.
-#define TINYXML2_LIB
-
-
-
+#ifdef _WIN32
+#   ifdef TINYXML2_EXPORT
+#       define TINYXML2_LIB __declspec(dllexport)
+#   elif defined(TINYXML2_IMPORT)
+#       define TINYXML2_LIB __declspec(dllimport)
+#   else
+#       define TINYXML2_LIB
+#   endif
+#elif __GNUC__ >= 4
+#   ifdef TINYXML2_EXPORT
+#     define TINYXML2_LIB __attribute__((visibility("default")))
+#   else
+#     define TINYXML2_LIB __attribute__((visibility("hidden")))
+#   endif
+#else
+#   define TINYXML2_LIB
+#endif
 
 #if defined(TINYXML2_DEBUG)
 #   if defined(_MSC_VER)
